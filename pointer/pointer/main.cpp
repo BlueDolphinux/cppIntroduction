@@ -11,29 +11,39 @@ void sum_mul(int x, int y, int* sum, int* mul) {
 
 int main(void) {
 
-	int a = 135, b = 253, sw;
-
-	cin >> sw;
-
-	// ptrというpointer領域を確保
+    // ********************************
+	// 初期化 ((初期化しないとバグる！！！))
+	int wa = 0;
+	int seki = 0;
+	// --------------------------
+    // ptrというpointer領域を確保
 	int* ptr;
+    // ********************************
+
+
+	int a = 135, b = 253, sw;
+	cin >> sw;
 	
 	// ptrにa or bのアドレスを代入 
-	if (sw == 0)
-	{
-		ptr = &a;
-	}
-	else
-	{
-		ptr = &b;
-	}
-	
+	if (sw == 0) { ptr = &a; }
+	else         { ptr = &b; }
 
 
 	cout << "a=" << a << "; b=" << b << "; sw=" << sw << endl;
 	cout << ptr << endl;
 	// アドレスを参照して実態を読む！
 	cout << *ptr << endl;
+
+    // **********************************************
+	// pointer sumをエイリアスとして、waのアドレスを関数に入力。
+	// ==> pointer sumはwaを指すことになる
+	// 関数sum_mul内で、waにその結果が入る！
+	sum_mul(a, b, &wa, &seki);
+	cout << "wa:" << wa << "; seki:" << seki << endl;
+    // **********************************************
+
+
+    cout << "***************************************" << endl;
 
 	// (a or bの)実態を上書き
 	*ptr = 999;
@@ -42,18 +52,14 @@ int main(void) {
 	cout << ptr << endl;
 	cout << *ptr << endl;
 
-	cout << "****************" << endl;
-
-	// 初期化 ((初期化しないとバグる！！！))
-	int wa = 0;
-	int seki = 0;
-
+    // **********************************************
 	// pointer sumをエイリアスとして、waのアドレスを関数に入力。
 	// ==> pointer sumはwaを指すことになる
 	// 関数sum_mul内で、waにその結果が入る！
 	sum_mul(a, b, &wa, &seki);
-
 	cout << "wa:" << wa << "; seki:" << seki << endl;
+    // **********************************************
+
 
 	return 0;
 }
